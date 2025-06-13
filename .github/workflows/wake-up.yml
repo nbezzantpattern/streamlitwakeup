@@ -1,0 +1,33 @@
+name: Wake Up Streamlit App
+
+on:
+  schedule:
+    # Runs every 10 hours
+    # Use '0 */10 * * *' for production, or adjust for testing (e.g., '*/30 * * * *' for every 30 minutes)
+    - cron: '0 */10 * * *'
+  workflow_dispatch:
+    # Allows you to manually trigger the workflow from the GitHub Actions tab
+
+jobs:
+  ping-streamlit-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ping Streamlit App
+        env:
+          STREAMLIT_APP_URL: ${{ secrets.STREAMLIT_APP_URL }}
+        run: |
+          if [ -z "$STREAMLIT_APP_URL" ]; then
+            echo "Error: STREAMLIT_APP_URL secret is not set."
+            exit 1
+          fi
+          echo "Pinging Streamlit app at: $STREAMLIT_APP_URL"
+          curl -s --head "$STREAMLIT_APP_URL" > /dev/null
+          if [ $? -eq 0 ]; then
+            echo "Successfully pinged the Streamlit app."
+          else
+            echo "Failed to ping the Streamlit app. Check the URL or app status."
+            exit 1
+          fi
