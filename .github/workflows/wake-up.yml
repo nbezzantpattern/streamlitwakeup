@@ -30,4 +30,4 @@ jobs:
           else
             echo "Failed to ping the Streamlit app. Check the URL or app status."
             exit 1
-          fi
+          fi 
