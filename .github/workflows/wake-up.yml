@@ -2,9 +2,8 @@ name: Wake Up Streamlit App
 
 on:
   schedule:
-    # Runs every 10 hours
-    # Use '0 */10 * * *' for production, or adjust for testing (e.g., '*/30 * * * *' for every 30 minutes)
-    - cron: '0 */10 * * *'
+    # Runs every 6 hours
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     # Allows you to manually trigger the workflow from the GitHub Actions tab
 
